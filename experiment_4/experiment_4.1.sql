@@ -1,20 +1,18 @@
--- 1.All orders with Customers Details: Get all of the orders table and also the details of respective customers if they exist. Use the customer and orders table.
+-- Customers and Orders: List the customer_name and order_date for all customers who have placed orders.
 
--- 2.Products and Categories: Create a combined list of all products and all categories. Include all product names and all category names. Where there's a match, show both; otherwise, use NULLs.
+-- All Customers and Their Orders: List all customer names and their corresponding product_name from orders, if they have any. Include customers even if they haven't placed any orders.
 
--- 3.All category names with product details: display category_name, along with all product names and price from all the categories present in categories table.
+-- Find Products and Their Orders: Display Product Name and the order_date from all the products that are ordered.
 
-SELECT c.customer_name , o.* 
-FROM customers c 
-RIGHT JOIN orders o 
-ON c.customer_id = o.customer_id;
+select c.customer_name, o.order_date from customers c
+left join orders o on c.customer_id = o.customer_id
+where o.order_date is not null;
 
-SELECT product_name , category_name
-FROM products p 
-FULL OUTER JOIN categories c 
-ON p.category_id = c.category_id;
+select c.customer_name , o.product_name from customers c
+left join orders o 
+on c.customer_id = o.customer_id;
 
-SELECT c.category_name , p.product_name , p.price 
-FROM products p 
-RIGHT JOIN categories c 
-ON c.category_id = p.category_id;
+select p.product_name, o.order_date from products p
+inner join orders o
+on o.product_name = p.product_name;
+
